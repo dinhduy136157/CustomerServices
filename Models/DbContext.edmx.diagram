@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e1b0c854059c43f497186aca00e99b5a" Name="Diagram1">
+        <EntityTypeShape EntityType="TTCSNModel.Contract" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCSNModel.Customer_Notes" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCSNModel.Customer" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCSNModel.Interaction" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCSNModel.Support_Tickets" Width="1.5" PointX="3" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCSNModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TTCSNModel.Transaction" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <AssociationConnector Association="TTCSNModel.fk_contract_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCSNModel.fk_note_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCSNModel.fk_interaction_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCSNModel.fk_ticket_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="TTCSNModel.fk_transaction_customer" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
