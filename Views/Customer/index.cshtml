@@ -155,39 +155,41 @@
                         <!-- Dòng trống để thêm mới -->
 
                         <form action="/Customer/Create" method="post">
-                        <tr id="newRow">
-                            <td class="stt"></td>
-                            <td id="name">
-                                <input type="text" name="first_name" placeholder="Nhập Họ" />
-                            </td>
-                            <td  id="name">
-                                <input type="text" name="last_name" placeholder="Nhập Tên" />
-                            </td>
-                            <td  class="editable" id="phone">
-                                <input type="text" name="phone" placeholder="Nhập SĐT" />
-                            </td>
-                            <td  class="editable" id="email">
-                                <input type="text" name="email" placeholder="Nhập Email" />
-                            </td>
-                            <td  class="editable" id="request">
-                                <input type="text" name="Address" placeholder="Nhập địa chỉ" />
-                            </td>
-                        </tr>
+                            <tr id="newRow">
+                                <td class="stt"></td>
+                                <td id="name">
+                                    <input type="text" name="first_name" placeholder="Nhập Họ" />
+                                </td>
+                                <td id="name">
+                                    <input type="text" name="last_name" placeholder="Nhập Tên" />
+                                </td>
+                                <td class="editable" id="phone">
+                                    <input type="text" name="phone" placeholder="Nhập SĐT" />
+                                </td>
+                                <td class="editable" id="email">
+                                    <input type="text" name="email" placeholder="Nhập Email" />
+                                </td>
+                                <td class="editable" id="request">
+                                    <input type="text" name="Address" placeholder="Nhập địa chỉ" />
+                                </td>
+                            </tr>
 
-                               <button>Thêm</button>
+                             <button>Thêm</button>
 
                         </form>
 
                     </tbody>
                 </table>
 
-
-                <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
-                    <h2>Xoá khách hàng</h2>
-                    <label for="editName">ID cần xoá: </label>
-                    <input type="text" id="editName" placeholder="Nhập ID">
-                    <button style="width: 100px;" onclick="deleteCustomer()">Xóa</button>
-                </div>
+                <form action="/Customer/Delete" method="get">
+                    <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                        <h2>Xoá khách hàng</h2>
+                        <label for="editName">ID cần xoá: </label>
+                        <input type="text" name="id" placeholder="Nhập ID">
+                        <button style="width: 100px;">Xóa</button>
+                    </div>
+                </form>
+                
             </div>
 
             <!-- Sửa thông tin khách hàng -->
