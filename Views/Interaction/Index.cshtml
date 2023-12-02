@@ -1,4 +1,4 @@
-﻿
+﻿@model List<CustomerServices.Models.Interaction>
 @{
     Layout = null;
 }
@@ -76,7 +76,7 @@
                     <div class="col-lg-3 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="~/Content/logo.png" alt="#"></a>
+                            <a href="index.html"><img src="img/logo.png" alt="#"></a>
                         </div>
                         <!-- End Logo -->
                         <!-- Mobile Nav -->
@@ -88,10 +88,10 @@
                         <div class="main-menu">
                             <nav class="navigation">
                                 <ul class="nav menu">
-                                    <li class="active"><a href="#header">Home <i class="icofont-rounded-down"></i></a></li>
-                                    <li><a href="#customerM">Customer List</a></li>
+                                    <li><a href="#header">Home <i class="icofont-rounded-down"></i></a></li>
+                                    <li class="active"><a href="#customerM">Customer List</a></li>
                                     <li><a href="#supportM">Support List </a></li>
-                                    <li><a href="#interactionM">Interaction List<i class="icofont-rounded-down"></i></a></li>
+                                    <li><a href="#interactionM">Interaction List</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -103,31 +103,122 @@
     </div>
     <!--/ End Header Inner -->
     </header>
+    <!-- End Header Area -->
+    <!-- Slider Area -->
+    <!-- Start CM -->
 
-    <h1 class="d-title">
-        Phần mềm quản lý thông tin về hồ sơ khách hàng <br>
-        <span>
-            Và dịch vụ hỗ trợ khách hàng
-        </span>
-    </h1>
+    <div class="customManage" id="interactionM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
+		<p style="font-size: 25px; color: rgb(1, 162, 255);; font-weight: bold;">
+			Quản Lý Tương Tác Khách Hàng
+		</p>
 
-    <div class="d-button">
-        <a href="../Customer">
-            <button>-> Quản lý thông tin khách hàng</button>
-        </a>
-        <br>
-        <a href="../Interaction">
-            <button>-> Quản lý tương tác khách hàng</button>
+		<div class="flex-container">
+			<!-- Danh sách yêu cầu hỗ trợ -->
+			<div class="form-container" id="formShow">
+				<h2>Danh sách tương tác khách hàng</h2>
+				<!-- Label và textbox cho Mã KH và Tên KH -->
+				<label for="maKH">Mã KH:</label>
+				<input type="text" id="maKH" placeholder="Nhập Mã KH">
 
-        </a>
-        <br>
-        <a href="../SupportTicket">
-            <button>-> Quản lý yêu cầu hỗ trợ</button>
+				<label for="tenKH">Tên KH:</label>
+				<input type="text" id="tenKH" placeholder="Nhập Tên KH">
 
-        </a>
+				<!-- Bảng yêu cầu khách hàng -->
+				<table>
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>ID khách hàng</th>
+							<th>Tên khách hàng</th>
+							<th>Loại tương tác</th>
+							<th>Nội dung tương tác</th>
+							<th>Ngày tương tác</th>
+							<th>Chi tiết</th>
+						</tr>
+					</thead>
+					<tbody>
+                        @foreach(var item in Model)
+                        {
+                            <tr>
+                                <td></td>
+                                <td>12</td>
+                                <td>Đinh Văn Duy</td>
+                                <td>aaaaaaaaaaaaa</td>
+                                <td>Gặp trực tiếp</td>
+                                <td class="editable" id="ngayTuongTac">2023-11-05 10:30:00</td>
+                                <td class="editable" id="chiTiet">Chi tiết 1</td>
+                            </tr>
+                        }
+						<!-- Dòng trống để thêm mới -->
+						<tr id="newRow">
+							<td class="stt">...</td>
+							<td class="editable" id="loaiTuongTac" >
+								<select>
+									<option value="gapTrucTiep">Gặp trực tiếp</option>
+									<option value="email">Email</option>
+									<option value="goiDien">Gọi điện</option>
+								</select>
+							</td>
+							<td class="editable" id="ngayTuongTac" >Nhập ngày tương tác</td>
+							<td class="editable" id="chiTiet" >Nhập chi tiết</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				
+				<button onclick="openForm()">Thêm</button>
 
-    </div>
+			</div>
 
+			<!-- Sửa thông tin khách hàng -->
+
+			<div class="form-container" id="editInfo">
+				<div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+					<h2>Sửa thông tin tương tác</h2>
+					<label for="editName">ID: </label>
+					<input type="text" id="editName" placeholder="Nhập ID">
+					<label for="editName">Loại tương tác: </label>
+					<input type="text" id="editName" placeholder="Nhập loại">
+					<label for="editName">Nội dung tương tác: </label>
+					<input type="textArea" id="editName" placeholder="Nhập nội dung.." style="height: 150px;">
+				</div>
+				<div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+					<h2>Xoá cuộc gọi/email</h2>
+					<label for="editName">ID cần xoá: </label>
+					<input type="text" id="editName" placeholder="Nhập ID">
+					<button style="width: 100px;" onclick="deleteCustomer()">Xóa</button>
+				</div>
+			</div>
+
+		</div>
+    <a href="/Home/index">
+        <button style="margin-bottom: 30px; margin-left: 20px;"><- Trở về</button>
+
+    </a>
+
+
+    <!-- End CM -->
+    <!-- Start SM -->
+    <!-- Footer Area -->
+    <footer id="footer" class="footer ">
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <div class="copyright-content">
+                            <p>
+                                © Copyright 2023 | All Rights Reserved by <a href="https://www.wpthemesgrid.com"
+                                                                             target="_blank">Nhóm 6</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Copyright -->
+    </footer>
     <script>
         function openForm() {
             document.getElementById('addForm').style.display = 'block';
@@ -205,5 +296,4 @@
     <!-- Main JS -->
     <script src="~/Content/main.js"></script>
 </body>
-
 </html>
