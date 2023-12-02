@@ -34,41 +34,34 @@ namespace CustomerService.Controllers
         [HttpPost]
         public ActionResult Create(Customer model)
         {
-            try
-            {
-                _context.Customers.Add(model);
-                _context.SaveChanges();
-                return View("Index");
-            }
-            catch
-            {
-                return View();
-            }
+           
+            _context.Customers.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+           
         }
-
-        // GET: Customer/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
-            var data = _context.Customers.Where(x => x.customer_id == id).FirstOrDefault();
-            return View(data);
+            return View();
         }
-
         // POST: Customer/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, Customer model)
+        public ActionResult Edit(Customer model)
         {
             try
             {
-                var data = _context.Customers.Where(x => x.customer_id == id).FirstOrDefault();
+                var data = _context.Customers.Where(x => x.customer_id == model.customer_id).FirstOrDefault();
                 if (data != null)
                 {
-                    data.customer_id = model.customer_id;
+
                     data.first_name = model.first_name;
                     data.last_name = model.last_name;
                     data.email = model.email;
                     data.phone = model.phone;
                     data.address = model.address;
+                    _context.SaveChanges();
                 }
+                
 
                 return RedirectToAction("Index");
             }

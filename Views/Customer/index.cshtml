@@ -125,6 +125,8 @@
                             <th>SĐT</th>
                             <th>Email</th>
                             <th>Địa chỉ</th>
+                            <th>Thời gian tạo</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -148,34 +150,40 @@
                                 <td contenteditable="false" class="editable" id="request">
                                     @item.address
                                 </td>
+                                <td contenteditable="false" class="editable" id="request">
+                                    @item.created_at
+                                </td>
 
 
                             </tr>
                         }
+
                         <!-- Dòng trống để thêm mới -->
 
-                        <form action="/Customer/Create" method="post">
-                            <tr id="newRow">
-                                <td class="stt"></td>
-                                <td id="name">
-                                    <input type="text" name="first_name" placeholder="Nhập Họ" />
-                                </td>
-                                <td id="name">
-                                    <input type="text" name="last_name" placeholder="Nhập Tên" />
-                                </td>
-                                <td class="editable" id="phone">
-                                    <input type="text" name="phone" placeholder="Nhập SĐT" />
-                                </td>
-                                <td class="editable" id="email">
-                                    <input type="text" name="email" placeholder="Nhập Email" />
-                                </td>
-                                <td class="editable" id="request">
-                                    <input type="text" name="Address" placeholder="Nhập địa chỉ" />
-                                </td>
-                            </tr>
-
-                             <button>Thêm</button>
-
+                        <form action="@Url.Action("Create", "Customer")" method="post">
+                        <tr id="newRow">
+                            <td class="stt"></td>
+                            <td>
+                                <input type="text" name="first_name" placeholder="Nhập Họ" />
+                            </td>
+                            <td>
+                                <input type="text" name="last_name" placeholder="Nhập Tên" />
+                            </td>
+                            <td class="editable">
+                                <input type="text" name="phone" placeholder="Nhập SĐT" />
+                            </td>
+                            <td class="editable">
+                                <input type="text" name="email" placeholder="Nhập Email" />
+                            </td>
+                            <td class="editable">
+                                <input type="text" name="address" placeholder="Nhập địa chỉ" />
+                            </td>
+                            <td>
+                                <input type="hidden" name="created_at" value="@DateTime.Now" />
+                                <input type="hidden" name="updated_at" value="@DateTime.Now" />
+                            </td>
+                        </tr>
+                        <button style="" type="submit">Thêm</button>
                         </form>
 
                     </tbody>
@@ -193,31 +201,29 @@
             </div>
 
             <!-- Sửa thông tin khách hàng -->
+            
             <div class="form-container" id="editInfo">
-                <h2>Sửa thông tin khách hàng</h2>
-                <label for="editName">ID bạn muốn sửa: </label>
-                <input type="text" id="editName" placeholder="Nhập ID">
+                <form action="@Url.Action("Edit", "Customer")" method="post">
+                    <h2>Sửa thông tin khách hàng</h2>
+                    <label for="editName">ID bạn muốn sửa: </label>
+                    <input type="text" name="customer_id" placeholder="Nhập ID">
 
-                <label for="editName">Tên:</label>
-                <input type="text" id="editName" placeholder="Nhập tên">
+                    <label for="editName">Họ:</label>
+                    <input type="text" name="first_name" placeholder="Nhập Họ">
+                    <label for="editName">Tên:</label>
+                    <input type="text" name="last_name" placeholder="Nhập Tên">
 
-                <label for="editPhone">SĐT:</label>
-                <input type="text" id="editPhone" placeholder="Nhập SĐT">
+                    <label for="editPhone">SĐT:</label>
+                    <input type="text" name="phone" placeholder="Nhập SĐT">
 
-                <label for="editEmail">Email:</label>
-                <input type="text" id="editEmail" placeholder="Nhập Email">
+                    <label for="editEmail">Email:</label>
+                    <input type="text" name="email" placeholder="Nhập Email">
 
-                <label for="editRequest">Nội dung yêu cầu:</label>
-                <input type="text" id="editRequest" placeholder="Nhập nội dung yêu cầu">
-
-                <label for="editStatus">Trạng thái xử lý:</label>
-                <input type="text" id="editStatus" placeholder="Nhập trạng thái xử lý">
-
-                <label for="editTime">Thời gian yêu cầu:</label>
-                <input type="text" id="editTime" placeholder="Nhập thời gian yêu cầu">
-
-                <button onclick="updateInfo()">Cập nhật</button>
-                <button class="cancel" onclick="closeForm()">Hủy</button>
+                    <label for="editRequest">Địa chỉ:</label>
+                    <input type="text" name="address" placeholder="Nhập địa chỉ">
+                    <button type="submit">Cập nhật</button>
+                    <button class="cancel" onclick="closeForm()">Hủy</button>
+                </form>
             </div>
 
         </div>
