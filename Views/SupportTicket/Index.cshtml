@@ -1,5 +1,5 @@
-﻿@model List<CustomerServices.Models.Customer>
-@{ 
+﻿@model List<CustomerServices.Models.Support_Tickets>
+@{
     Layout = null;
 }
 <!doctype html>
@@ -51,7 +51,7 @@
 </head>
 
 <body>
-    
+
     <!-- Preloader -->
     <div class="preloader">
         <div class="loader">
@@ -107,26 +107,35 @@
     <!-- Slider Area -->
     <!-- Start CM -->
 
-    <div class="customManage" id="customerM" style="padding-top: 30px; border: 1px 0 1px 0 solid #ccc; margin-bottom: 20px;">
+    <div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
         <p style="font-size: 25px; color: rgb(1, 162, 255);; font-weight: bold;">
-            Quản Lý Thông Tin Khách Hàng
+            Quản Lý Yêu Cầu Hỗ Trợ
         </p>
 
         <div class="flex-container">
             <!-- Danh sách yêu cầu hỗ trợ -->
             <div class="form-container" id="formShow">
-                <h2>Danh sách khách hàng</h2>
+                <h2>Danh sách yêu cầu hỗ trợ</h2>
+                <!-- Label và textbox cho Mã KH và Tên KH -->
+                <label for="maKH">Mã KH:</label>
+                <input type="text" id="maKH" placeholder="Nhập Mã KH">
+
+                <label for="tenKH">Tên KH:</label>
+                <input type="text" id="tenKH" placeholder="Nhập Tên KH">
+
+                <!-- Bảng yêu cầu khách hàng -->
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Họ</th>
-                            <th>Tên</th>
-                            <th>SĐT</th>
-                            <th>Email</th>
-                            <th>Địa chỉ</th>
-                            <th>Thời gian tạo</th>
-
+                            <th>ID KH</th>
+                            <th>Họ KH</th>
+                            <th>Tên KH</th>
+                            <th>Chủ đề hỗ trợ</th>
+                            <th>Mô tả chi tiết</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tạo yêu cầu</th>
+                            <th>Ngày cập nhật</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -134,96 +143,107 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td class="stt">@item.customer_id</td>
-                                <td   id="name">
-                                    @item.first_name
+                                <td class="stt">@item.ticket_id</td>
+                                <td>
+                                    @item.customer_id
                                 </td>
-                                <td   id="status">
-                                    @item.last_name
+                                <td>
+                                    @item.Customer.first_name
                                 </td>
-                                <td   id="phone">
-                                    @item.phone
+                                <td>
+                                    @item.Customer.last_name
                                 </td>
-                                <td   id="email">
-                                    @item.email
+                                <td>
+                                    @item.subject
                                 </td>
-                                <td   id="request">
-                                    @item.address
+                                <td>
+                                    @item.description
                                 </td>
-                                <td   id="request">
+                                <td>
+                                    @if (@item.status == "C")
+                                    {
+                                        <p>Chưa bắt đầu</p>
+                                    }
+                                    @if (@item.status == "D")
+                                    {
+                                        <p>Đang thực hiện</p>
+                                    }
+                                    @if (item.status == "H")
+                                    {
+                                        <p>Hoàn thành</p>
+                                    }
+                                </td>
+                                <td>
                                     @item.created_at
                                 </td>
-
-
+                                <td>
+                                    @item.updated_at
+                                </td>
                             </tr>
                         }
 
                         <!-- Dòng trống để thêm mới -->
-
-                        <form action="@Url.Action("Create", "Customer")" method="post">
+                        <form action="@Url.Action("Create", "SupportTicket")" method="post">
                             <tr id="newRow">
-                                <td class="stt"></td>
+
+                                <td class="stt">...</td>
                                 <td>
-                                    <input type="text" name="first_name" placeholder="Nhập Họ" />
-                                </td>
-                                <td>
-                                    <input type="text" name="last_name" placeholder="Nhập Tên" />
-                                </td>
-                                <td >
-                                    <input type="text" name="phone" placeholder="Nhập SĐT" />
-                                </td>
-                                <td >
-                                    <input type="text" name="email" placeholder="Nhập Email" />
-                                </td>
-                                <td >
-                                    <input type="text" name="address" placeholder="Nhập địa chỉ" />
+                                    <input type="number" name="customer_id" placeholder="Nhập Mã KH" />
                                 </td>
                                 <td>
-                                    <input type="hidden" name="created_at" value="@DateTime.Now" />
-                                    <input type="hidden" name="updated_at" value="@DateTime.Now" />
+                                    <input type="text" name="first_name" placeholder="Nhập Họ KH" />
+                                </td>
+                                <td>
+                                    <input type="text" name="last_name" placeholder="Nhập Tên KH" />
+                                </td>
+                                <td>
+                                    <input type="text" name="subject" placeholder="Nhập chủ đề" />
+                                </td>
+                                <td>
+                                    <input type="text" name="description" placeholder="Nhập mô tả" />
+                                </td>
+                                <td>
+                                    <select name="status">
+                                        <option value="C">Chưa bắt đầu</option>
+                                        <option value="D">Đang thực hiện</option>
+                                        <option value="H">Hoàn thành</option>
+                                    </select>
+                                </td>
+                            
+                                <td>
+                                </td>
+                                <td>
+                               
                                 </td>
                             </tr>
-                            <button  type="submit">Thêm</button>
                         </form>
 
                     </tbody>
                 </table>
 
-                <form action="/Customer/Delete" method="get">
-                    <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
-                        <h2>Xoá khách hàng</h2>
-                        <label for="editName">ID cần xoá: </label>
-                        <input type="text" name="id" placeholder="Nhập ID">
-                        <button style="width: 100px;">Xóa</button>
-                    </div>
-                </form>
-                
+
+
+                <button onclick="openForm()">Thêm</button>
+
             </div>
 
             <!-- Sửa thông tin khách hàng -->
-            
+
             <div class="form-container" id="editInfo">
-                <form action="@Url.Action("Edit", "Customer")" method="post">
-                    <h2>Sửa thông tin khách hàng</h2>
-                    <label for="editName">ID bạn muốn sửa: </label>
-                    <input type="text" name="customer_id" placeholder="Nhập ID">
+                <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                    <h2>Sửa yêu cầu</h2>
+                    <label for="editName">ID cần sửa: </label>
+                    <input type="text" id="editName" placeholder="Nhập ID">
+                    <input type="textArea" id="editName" placeholder="Nhập nội dung yêu cầu" style="height: 150px;">
+                    <button style="width: 100px;" onclick="deleteCustomer()">Sửa</button>
+                </div>
 
-                    <label for="editName">Họ:</label>
-                    <input type="text" name="first_name" placeholder="Nhập Họ">
-                    <label for="editName">Tên:</label>
-                    <input type="text" name="last_name" placeholder="Nhập Tên">
-
-                    <label for="editPhone">SĐT:</label>
-                    <input type="text" name="phone" placeholder="Nhập SĐT">
-
-                    <label for="editEmail">Email:</label>
-                    <input type="text" name="email" placeholder="Nhập Email">
-
-                    <label for="editRequest">Địa chỉ:</label>
-                    <input type="text" name="address" placeholder="Nhập địa chỉ">
-                    <button type="submit">Cập nhật</button>
-                    <button class="cancel" onclick="closeForm()">Hủy</button>
-                </form>
+                <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                    <h2>Xoá yêu cầu</h2>
+                    <label for="editName">ID cần xoá: </label>
+                    <input type="text" id="editName" placeholder="Nhập ID">
+                    <button style="width: 100px;" onclick="deleteCustomer()">Xóa</button>
+                </div>
             </div>
 
         </div>
@@ -237,7 +257,6 @@
 
     <!-- End CM -->
     <!-- Start SM -->
-
     <!-- Footer Area -->
     <footer id="footer" class="footer ">
 

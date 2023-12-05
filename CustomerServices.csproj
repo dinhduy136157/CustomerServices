@@ -131,6 +131,7 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InteractionController.cs" />
+    <Compile Include="Controllers\SupportTicketController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -240,6 +241,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Customer\index.cshtml" />
     <Content Include="Views\Interaction\Index.cshtml" />
+    <Content Include="Views\SupportTicket\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
