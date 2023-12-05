@@ -1,16 +1,16 @@
 ﻿using CustomerServices.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace CustomerServices.Controllers
 {
     public class InteractionController : Controller
     {
-
+        // GET: Interaction
         private readonly TTCSNEntities _context;
 
         public InteractionController()
@@ -18,22 +18,83 @@ namespace CustomerServices.Controllers
             _context = new TTCSNEntities();
         }
         public ActionResult Index()
-        {   
-            var data = (from i in _context.Interactions
-                        join c in _context.Customers on i.customer_id equals c.customer_id
-                        select new
-                        {
-                            interaction_id = i.interaction_id,
-                            customer_id = i.customer_id,
-                            first_name = c.first_name,
-                            last_name = c.last_name,
-                            interaction_type = i.interaction_type,
-                            description = i.description,
-                            interaction_date = i.interaction_date
+        {
 
-                        });
-            return View(data.ToList()); 
+            var data = _context.Interactions.Include(x => x.Customer).ToList();
+            return View(data);
+            
         }
 
+        // GET: Interaction/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
+        }
+
+        // GET: Interaction/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Interaction/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Interaction/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
+        }
+
+        // POST: Interaction/Edit/5
+        [HttpPost]
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: Interaction/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: Interaction/Delete/5
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection collection)
+        {
+            try
+            {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+        }
     }
 }

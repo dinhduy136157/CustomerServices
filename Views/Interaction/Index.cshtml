@@ -133,35 +133,48 @@
 							<th>Loại tương tác</th>
 							<th>Nội dung tương tác</th>
 							<th>Ngày tương tác</th>
-							<th>Chi tiết</th>
 						</tr>
 					</thead>
 					<tbody>
                         @foreach(var item in Model)
                         {
                             <tr>
-                                <td></td>
-                                <td>12</td>
-                                <td>Đinh Văn Duy</td>
-                                <td>aaaaaaaaaaaaa</td>
-                                <td>Gặp trực tiếp</td>
-                                <td class="editable" id="ngayTuongTac">2023-11-05 10:30:00</td>
-                                <td class="editable" id="chiTiet">Chi tiết 1</td>
+                                <td>@item.interaction_id</td>
+                                <td>@item.customer_id</td>
+                                <td>@item.Customer.first_name @item.Customer.last_name </td>
+                                <td>
+
+                                    @if (@item.interaction_type == "M")
+                                    {
+                                        <p>Gặp trực tiếp</p>
+                                    }
+                                    @if (@item.interaction_type == "E")
+                                    {
+                                        <p>Email</p>
+                                    }
+                                    @if (item.interaction_type == "P")
+                                    {
+                                        <p>Gọi điện</p>
+                                    }
+                                </td>
+                                <td>@item.description</td>
+                                <td class="editable" id="ngayTuongTac">@item.interaction_date</td>
                             </tr>
                         }
 						<!-- Dòng trống để thêm mới -->
-						<tr id="newRow">
-							<td class="stt">...</td>
-							<td class="editable" id="loaiTuongTac" >
-								<select>
-									<option value="gapTrucTiep">Gặp trực tiếp</option>
-									<option value="email">Email</option>
-									<option value="goiDien">Gọi điện</option>
-								</select>
-							</td>
-							<td class="editable" id="ngayTuongTac" >Nhập ngày tương tác</td>
-							<td class="editable" id="chiTiet" >Nhập chi tiết</td>
-						</tr>
+                    <tr id="newRow">
+                        <td class="stt"></td>
+                        <td class="stt"></td>
+                        <td class="editable" id="loaiTuongTac">
+                            <select>
+                                <option value="gapTrucTiep">Gặp trực tiếp</option>
+                                <option value="email">Email</option>
+                                <option value="goiDien">Gọi điện</option>
+                            </select>
+                        </td>
+                        <td class="editable" id="ngayTuongTac">Nhập ngày tương tác</td>
+                        <td class="editable" id="chiTiet">Nhập chi tiết</td>
+                    </tr>
 					</tbody>
 				</table>
 				
@@ -169,6 +182,10 @@
 				<button onclick="openForm()">Thêm</button>
 
 			</div>
+            @if(ViewBag.ErrorMessage != null)
+            {
+                <p>Err: @ViewBag.ErrorMessage</p>
+            }
 
 			<!-- Sửa thông tin khách hàng -->
 
