@@ -135,22 +135,22 @@
                         {
                             <tr>
                                 <td class="stt">@item.customer_id</td>
-                                <td contenteditable="false" class="editable" id="name">
+                                <td contenteditable="false"  id="name">
                                     @item.first_name
                                 </td>
-                                <td contenteditable="false" class="editable" id="status">
+                                <td contenteditable="false"  id="status">
                                     @item.last_name
                                 </td>
-                                <td contenteditable="false" class="editable" id="phone">
+                                <td contenteditable="false"  id="phone">
                                     @item.phone
                                 </td>
-                                <td contenteditable="false" class="editable" id="email">
+                                <td contenteditable="false"  id="email">
                                     @item.email
                                 </td>
-                                <td contenteditable="false" class="editable" id="request">
+                                <td contenteditable="false"  id="request">
                                     @item.address
                                 </td>
-                                <td contenteditable="false" class="editable" id="request">
+                                <td contenteditable="false"  id="request">
                                     @item.created_at
                                 </td>
 
@@ -161,29 +161,29 @@
                         <!-- Dòng trống để thêm mới -->
 
                         <form action="@Url.Action("Create", "Customer")" method="post">
-                        <tr id="newRow">
-                            <td class="stt"></td>
-                            <td>
-                                <input type="text" name="first_name" placeholder="Nhập Họ" />
-                            </td>
-                            <td>
-                                <input type="text" name="last_name" placeholder="Nhập Tên" />
-                            </td>
-                            <td class="editable">
-                                <input type="text" name="phone" placeholder="Nhập SĐT" />
-                            </td>
-                            <td class="editable">
-                                <input type="text" name="email" placeholder="Nhập Email" />
-                            </td>
-                            <td class="editable">
-                                <input type="text" name="address" placeholder="Nhập địa chỉ" />
-                            </td>
-                            <td>
-                                <input type="hidden" name="created_at" value="@DateTime.Now" />
-                                <input type="hidden" name="updated_at" value="@DateTime.Now" />
-                            </td>
-                        </tr>
-                        <button style="" type="submit">Thêm</button>
+                            <tr id="newRow">
+                                <td class="stt"></td>
+                                <td>
+                                    <input type="text" name="first_name" placeholder="Nhập Họ" />
+                                </td>
+                                <td>
+                                    <input type="text" name="last_name" placeholder="Nhập Tên" />
+                                </td>
+                                <td >
+                                    <input type="text" name="phone" placeholder="Nhập SĐT" />
+                                </td>
+                                <td >
+                                    <input type="text" name="email" placeholder="Nhập Email" />
+                                </td>
+                                <td >
+                                    <input type="text" name="address" placeholder="Nhập địa chỉ" />
+                                </td>
+                                <td>
+                                    <input type="hidden" name="created_at" value="@DateTime.Now" />
+                                    <input type="hidden" name="updated_at" value="@DateTime.Now" />
+                                </td>
+                            </tr>
+                            <button  type="submit">Thêm</button>
                         </form>
 
                     </tbody>

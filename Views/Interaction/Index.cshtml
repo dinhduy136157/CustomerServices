@@ -129,19 +129,21 @@
 						<tr>
 							<th>ID</th>
 							<th>ID khách hàng</th>
-							<th>Tên khách hàng</th>
+							<th>Họ</th>
+							<th>Tên</th>
 							<th>Loại tương tác</th>
 							<th>Nội dung tương tác</th>
 							<th>Ngày tương tác</th>
 						</tr>
 					</thead>
-					<tbody>
-                        @foreach(var item in Model)
+                    <tbody>
+                        @foreach (var item in Model)
                         {
                             <tr>
                                 <td>@item.interaction_id</td>
                                 <td>@item.customer_id</td>
-                                <td>@item.Customer.first_name @item.Customer.last_name </td>
+                                <td>@item.Customer.first_name </td>
+                                <td>@item.Customer.last_name </td>
                                 <td>
 
                                     @if (@item.interaction_type == "M")
@@ -158,28 +160,46 @@
                                     }
                                 </td>
                                 <td>@item.description</td>
-                                <td class="editable" id="ngayTuongTac">@item.interaction_date</td>
+                                <td id="ngayTuongTac">@item.interaction_date</td>
                             </tr>
                         }
-						<!-- Dòng trống để thêm mới -->
-                    <tr id="newRow">
-                        <td class="stt"></td>
-                        <td class="stt"></td>
-                        <td class="editable" id="loaiTuongTac">
-                            <select>
-                                <option value="gapTrucTiep">Gặp trực tiếp</option>
-                                <option value="email">Email</option>
-                                <option value="goiDien">Gọi điện</option>
-                            </select>
-                        </td>
-                        <td class="editable" id="ngayTuongTac">Nhập ngày tương tác</td>
-                        <td class="editable" id="chiTiet">Nhập chi tiết</td>
-                    </tr>
-					</tbody>
+                        <!-- Dòng trống để thêm mới -->
+                        <form action=@Url.Action("Create", "Interaction") method="post">
+                            <tr id="newRow">
+                                <td class="stt"></td>
+                                <td>
+                                    <input type="number" name="customer_id" placeholder="Nhập id KH" />
+                                </td>
+                                <td>
+                                    
+                                </td>
+
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    <select name="interaction_type">
+                                        <option value="M">Gặp trực tiếp</option>
+                                        <option value="E">Email</option>
+                                        <option value="P">Gọi điện</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="description" placeholder="Nhập nội dung" />
+                                </td>
+
+                                <td>
+                                    <input type="hidden" name="interaction_date" value="@DateTime.Now" />
+                                </td>
+                            </tr>
+                         <button type="submit">Thêm</button>
+
+                        </form>
+
+                    </tbody>
 				</table>
 				
 				
-				<button onclick="openForm()">Thêm</button>
 
 			</div>
             @if(ViewBag.ErrorMessage != null)

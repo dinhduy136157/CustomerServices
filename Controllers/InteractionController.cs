@@ -25,12 +25,6 @@ namespace CustomerServices.Controllers
             
         }
 
-        // GET: Interaction/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Interaction/Create
         public ActionResult Create()
         {
@@ -39,12 +33,12 @@ namespace CustomerServices.Controllers
 
         // POST: Interaction/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Interaction model)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                _context.Interactions.Add(model);
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch
