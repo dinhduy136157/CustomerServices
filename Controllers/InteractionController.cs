@@ -79,23 +79,10 @@ namespace CustomerServices.Controllers
         // GET: Interaction/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Interaction/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            var data = _context.Interactions.Where(x => x.interaction_id == id).FirstOrDefault();
+            _context.Interactions.Remove(data);
+            _context.SaveChanges();
+            return RedirectToAction("index");
         }
     }
 }

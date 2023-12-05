@@ -227,13 +227,15 @@
                     </div>
                     <button type="submit">Sửa</button>
             </form>
-
-            <div style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
-                <h2>Xoá cuộc gọi/email</h2>
-                <label for="editName">ID cần xoá: </label>
-                <input type="text" id="editName" placeholder="Nhập ID">
-                <button style="width: 100px;" onclick="deleteCustomer()">Xóa</button>
-            </div>
+            <form action="@Url.Action("Delete", "Interaction")" method="get">
+                <div style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                    <h2>Xoá cuộc gọi/email</h2>
+                    <label for="editName">ID cần xoá: </label>
+                    <input type="number" name="id" placeholder="Nhập ID">
+                    <button style="width: 100px;" type="submit">Xóa</button>
+                </div>
+            </form>
+            
             </div>
 
 
