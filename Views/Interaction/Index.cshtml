@@ -112,30 +112,30 @@
 			Quản Lý Tương Tác Khách Hàng
 		</p>
 
-		<div class="flex-container">
-			<!-- Danh sách yêu cầu hỗ trợ -->
-			<div class="form-container" id="formShow">
-				<h2>Danh sách tương tác khách hàng</h2>
-				<!-- Label và textbox cho Mã KH và Tên KH -->
-				<label for="maKH">Mã KH:</label>
-				<input type="text" id="maKH" placeholder="Nhập Mã KH">
+        <div class="flex-container">
+            <!-- Danh sách yêu cầu hỗ trợ -->
+            <div class="form-container" id="formShow">
+                <h2>Danh sách tương tác khách hàng</h2>
+                <!-- Label và textbox cho Mã KH và Tên KH -->
+                <label for="maKH">Mã KH:</label>
+                <input type="text" id="maKH" placeholder="Nhập Mã KH">
 
-				<label for="tenKH">Tên KH:</label>
-				<input type="text" id="tenKH" placeholder="Nhập Tên KH">
+                <label for="tenKH">Tên KH:</label>
+                <input type="text" id="tenKH" placeholder="Nhập Tên KH">
 
-				<!-- Bảng yêu cầu khách hàng -->
-				<table>
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>ID khách hàng</th>
-							<th>Họ</th>
-							<th>Tên</th>
-							<th>Loại tương tác</th>
-							<th>Nội dung tương tác</th>
-							<th>Ngày tương tác</th>
-						</tr>
-					</thead>
+                <!-- Bảng yêu cầu khách hàng -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ID khách hàng</th>
+                            <th>Họ</th>
+                            <th>Tên</th>
+                            <th>Loại tương tác</th>
+                            <th>Nội dung tương tác</th>
+                            <th>Ngày tương tác</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
@@ -165,69 +165,79 @@
                         }
                         <!-- Dòng trống để thêm mới -->
                         <form action=@Url.Action("Create", "Interaction") method="post">
-                            <tr id="newRow">
-                                <td class="stt"></td>
-                                <td>
-                                    <input type="number" name="customer_id" placeholder="Nhập id KH" />
-                                </td>
-                                <td>
-                                    
-                                </td>
+                        <tr id="newRow">
+                            <td class="stt"></td>
+                            <td>
+                                <input type="number" name="customer_id" placeholder="Nhập id KH" />
+                            </td>
+                            <td>
+                            </td>
 
-                                <td>
-                                    
-                                </td>
-                                <td>
-                                    <select name="interaction_type">
-                                        <option value="M">Gặp trực tiếp</option>
-                                        <option value="E">Email</option>
-                                        <option value="P">Gọi điện</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" name="description" placeholder="Nhập nội dung" />
-                                </td>
+                            <td>
+                            </td>
+                            <td>
+                                <select name="interaction_type">
+                                    <option value="M">Gặp trực tiếp</option>
+                                    <option value="E">Email</option>
+                                    <option value="P">Gọi điện</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" name="description" placeholder="Nhập nội dung" />
+                            </td>
 
-                                <td>
-                                    <input type="hidden" name="interaction_date" value="@DateTime.Now" />
-                                </td>
-                            </tr>
-                         <button type="submit">Thêm</button>
+                            <td>
+                                <input type="hidden" name="interaction_date" value="@DateTime.Now" />
+                            </td>
+                        </tr>
+                        <button type="submit">Thêm</button>
 
                         </form>
 
                     </tbody>
-				</table>
-				
-				
+                </table>
 
-			</div>
-            @if(ViewBag.ErrorMessage != null)
+
+
+            </div>
+            @if (ViewBag.ErrorMessage != null)
             {
                 <p>Err: @ViewBag.ErrorMessage</p>
             }
 
-			<!-- Sửa thông tin khách hàng -->
+            <!-- Sửa thông tin khách hàng -->
+            <form action="@Url.Action("Edit", "Interaction")" method="post">
+                  <div class="form-container">
+                        <div style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                        <h2>Sửa thông tin tương tác</h2>
+                        <label for="editName">ID: </label>
+                        <input type="number" name="interaction_id" placeholder="Nhập ID">
+                        <label for="editName">Loại tương tác: </label>
+                        <br />
+                        <div style="margin-bottom: 20px">
+                            <select name="interaction_type">
+                                <option value="M">Gặp trực tiếp</option>
+                                <option value="E">Email</option>
+                                <option value="P">Gọi điện</option>
+                            </select>
+                        </div>
 
-			<div class="form-container" id="editInfo">
-				<div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
-					<h2>Sửa thông tin tương tác</h2>
-					<label for="editName">ID: </label>
-					<input type="text" id="editName" placeholder="Nhập ID">
-					<label for="editName">Loại tương tác: </label>
-					<input type="text" id="editName" placeholder="Nhập loại">
-					<label for="editName">Nội dung tương tác: </label>
-					<input type="textArea" id="editName" placeholder="Nhập nội dung.." style="height: 150px;">
-				</div>
-				<div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
-					<h2>Xoá cuộc gọi/email</h2>
-					<label for="editName">ID cần xoá: </label>
-					<input type="text" id="editName" placeholder="Nhập ID">
-					<button style="width: 100px;" onclick="deleteCustomer()">Xóa</button>
-				</div>
-			</div>
+                        <label style="position: absolute; margin-top: -20px" for="editName">Nội dung tương tác: </label>
+                        <input type="textArea" name="description" placeholder="Nhập nội dung.." style="height: 150px;">
+                    </div>
+                    <button type="submit">Sửa</button>
+            </form>
 
-		</div>
+            <div style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                <h2>Xoá cuộc gọi/email</h2>
+                <label for="editName">ID cần xoá: </label>
+                <input type="text" id="editName" placeholder="Nhập ID">
+                <button style="width: 100px;" onclick="deleteCustomer()">Xóa</button>
+            </div>
+            </div>
+
+
+        </div>
     <a href="/Home/index">
         <button style="margin-bottom: 30px; margin-left: 20px;"><- Trở về</button>
 

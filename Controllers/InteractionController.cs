@@ -48,19 +48,26 @@ namespace CustomerServices.Controllers
         }
 
         // GET: Interaction/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             return View();
         }
 
         // POST: Interaction/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Interaction model)
         {
             try
             {
-                // TODO: Add update logic here
+                var data = _context.Interactions.Where(x => x.interaction_id == model.interaction_id).FirstOrDefault();
+                if (data  != null)
+                {
 
+                    data.interaction_type = model.interaction_type;
+                    data.interaction_date = model.interaction_date;
+                    data.description = model.description;
+                    _context.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
