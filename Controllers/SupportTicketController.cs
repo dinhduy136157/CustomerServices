@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Data.Entity.Migrations.Model;
 
 namespace CustomerServices.Controllers
 {
@@ -23,12 +24,6 @@ namespace CustomerServices.Controllers
             return View(data);
         }
 
-        // GET: SupportTicket/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: SupportTicket/Create
         public ActionResult Create()
         {
@@ -37,11 +32,12 @@ namespace CustomerServices.Controllers
 
         // POST: SupportTicket/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Support_Tickets model)
         {
             try
             {
-                // TODO: Add insert logic here
+                _context.Support_Tickets.Add(model);
+                _context.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -52,19 +48,26 @@ namespace CustomerServices.Controllers
         }
 
         // GET: SupportTicket/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit()
         {
             return View();
         }
 
         // POST: SupportTicket/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Support_Tickets model)
         {
             try
             {
-                // TODO: Add update logic here
-
+                var data = _context.Support_Tickets.Where(x => x.ticket_id == model.ticket_id).FirstOrDefault();
+                if(data != null)
+                {
+                    data.subject = model.subject;
+                    data.description = model.description;
+                    data.status = model.status;
+                    data.updated_at = model.updated_at;
+                    _context.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -76,23 +79,12 @@ namespace CustomerServices.Controllers
         // GET: SupportTicket/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var data = _context.Support_Tickets.Where(x=>x.ticket_id==id).FirstOrDefault();
+            _context.Support_Tickets.Remove(data);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // POST: SupportTicket/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

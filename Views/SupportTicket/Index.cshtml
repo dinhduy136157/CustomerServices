@@ -115,13 +115,7 @@
         <div class="flex-container">
             <!-- Danh sách yêu cầu hỗ trợ -->
             <div class="form-container" id="formShow">
-                <h2>Danh sách yêu cầu hỗ trợ</h2>
-                <!-- Label và textbox cho Mã KH và Tên KH -->
-                <label for="maKH">Mã KH:</label>
-                <input type="text" id="maKH" placeholder="Nhập Mã KH">
-
-                <label for="tenKH">Tên KH:</label>
-                <input type="text" id="tenKH" placeholder="Nhập Tên KH">
+                
 
                 <!-- Bảng yêu cầu khách hàng -->
                 <table>
@@ -184,38 +178,41 @@
 
                         <!-- Dòng trống để thêm mới -->
                         <form action="@Url.Action("Create", "SupportTicket")" method="post">
-                            <tr id="newRow">
+                        <tr id="newRow">
 
-                                <td class="stt">...</td>
-                                <td>
-                                    <input type="number" name="customer_id" placeholder="Nhập Mã KH" />
-                                </td>
-                                <td>
-                                    <input type="text" name="first_name" placeholder="Nhập Họ KH" />
-                                </td>
-                                <td>
-                                    <input type="text" name="last_name" placeholder="Nhập Tên KH" />
-                                </td>
-                                <td>
-                                    <input type="text" name="subject" placeholder="Nhập chủ đề" />
-                                </td>
-                                <td>
-                                    <input type="text" name="description" placeholder="Nhập mô tả" />
-                                </td>
-                                <td>
-                                    <select name="status">
-                                        <option value="C">Chưa bắt đầu</option>
-                                        <option value="D">Đang thực hiện</option>
-                                        <option value="H">Hoàn thành</option>
-                                    </select>
-                                </td>
-                            
-                                <td>
-                                </td>
-                                <td>
-                               
-                                </td>
-                            </tr>
+                            <td class="stt">...</td>
+                            <td>
+                                <input type="number" name="customer_id" placeholder="Nhập Mã KH" />
+                            </td>
+                            <td>
+                                <input type="text" name="first_name" placeholder="Nhập Họ KH" />
+                            </td>
+                            <td>
+                                <input type="text" name="last_name" placeholder="Nhập Tên KH" />
+                            </td>
+                            <td>
+                                <input type="text" name="subject" placeholder="Nhập chủ đề" />
+                            </td>
+                            <td>
+                                <input type="text" name="description" placeholder="Nhập mô tả" />
+                            </td>
+                            <td>
+                                <select name="status">
+                                    <option value="C">Chưa bắt đầu</option>
+                                    <option value="D">Đang thực hiện</option>
+                                    <option value="H">Hoàn thành</option>
+                                </select>
+                            </td>
+
+                            <td>
+                                <input type="hidden" name="created_at" value="@DateTime.Now" />
+                            </td>
+                            <td>
+                                <input type="hidden" name="updated_at" value="@DateTime.Now" />
+                            </td>
+                        </tr>
+                        <button type="submit">Thêm</button>
+
                         </form>
 
                     </tbody>
@@ -223,28 +220,40 @@
 
 
 
-                <button onclick="openForm()">Thêm</button>
 
             </div>
 
             <!-- Sửa thông tin khách hàng -->
-
-            <div class="form-container" id="editInfo">
-                <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
-                    <h2>Sửa yêu cầu</h2>
-                    <label for="editName">ID cần sửa: </label>
-                    <input type="text" id="editName" placeholder="Nhập ID">
-                    <input type="textArea" id="editName" placeholder="Nhập nội dung yêu cầu" style="height: 150px;">
-                    <button style="width: 100px;" onclick="deleteCustomer()">Sửa</button>
-                </div>
-
+            <form action="@Url.Action("Edit", "SupportTicket")" method="post">
+                <div class="form-container" id="editInfo">
+                    <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                        <h2>Sửa yêu cầu</h2>
+                        <label>ID cần sửa: </label>
+                        <input type="number" name="ticket_id" placeholder="Nhập ID">
+                        <label>Chủ đề: </label>
+                        <input type="text" name="subject" placeholder="Nhập chủ đề">
+                        <label>Mô tả: </label>
+                        <select name="status">
+                            <option value="C">Chưa bắt đầu</option>
+                            <option value="D">Đang thực hiện</option>
+                            <option value="H">Hoàn thành</option>
+                        </select>
+                        <input type="textArea" name="description" placeholder="Nhập nội dung yêu cầu" style="height: 150px;">
+                        <input type="hidden" name="updated_at" value="@DateTime.Now" />
+                        <button style="width: 100px;" type="submit">Sửa</button>
+                    </div>
+            </form>
+            <form action="@Url.Action("Delete", "SupportTicket")" method="get">
                 <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
                     <h2>Xoá yêu cầu</h2>
                     <label for="editName">ID cần xoá: </label>
-                    <input type="text" id="editName" placeholder="Nhập ID">
-                    <button style="width: 100px;" onclick="deleteCustomer()">Xóa</button>
+                    <input type="number" name="id" placeholder="Nhập ID">
+                    <button style="width: 100px;" style="submit">Xóa</button>
                 </div>
+            </form>
+            
             </div>
+
 
         </div>
 
