@@ -187,11 +187,8 @@
                             <td>
                                 <input type="number" name="customer_id" placeholder="Nhập Mã KH" />
                             </td>
-                            <td>
-                                <input type="text" name="first_name" placeholder="Nhập Họ KH" />
-                            </td>
-                            <td>
-                                <input type="text" name="last_name" placeholder="Nhập Tên KH" />
+                            <td colspan="2">
+                                Không nhập được..
                             </td>
                             <td>
                                 <input type="text" name="subject" placeholder="Nhập chủ đề" />
@@ -337,10 +334,15 @@
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Chưa bắt đầu', 'Đang thực hiện', 'Hoàn thành'],
+                    labels: ['Hoàn thành', 'Chưa bắt đầu', 'Đang thực hiện'],
                     datasets: [{
-                        label: '# of Votes',
-                        data: [c, d, h],
+                        label: 'My data',
+                        data: [h, c, d],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ],
                         borderWidth: 1,
                     }]
                 },
