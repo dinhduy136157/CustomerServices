@@ -268,8 +268,8 @@
 
     <div class="flex-container">
         <div class="form-container " id="formShow">
-            <div>
-                <canvas id="myChart"></canvas>
+            <div class="chart-container" style="height:50vh; width:90vw; margin-left: 200px;">
+                <canvas  id="myChart"></canvas>
             </div>
         </div>
     </div>
@@ -333,7 +333,7 @@
             const ctx = document.getElementById('myChart');
 
             new Chart(ctx, {
-                type: 'bar',
+                type: 'doughnut',
                 data: {
                     labels: ['Chưa bắt đầu', 'Đang thực hiện', 'Hoàn thành'],
                     datasets: [{
