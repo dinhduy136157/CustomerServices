@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="~/Content/update.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
@@ -274,7 +274,7 @@
         </div>
     </div>
     <a href="/Home/index">
-        <button style="margin-bottom: 30px; margin-left: 20px;"><- Trở về</button>
+        <button style="margin-bottom: 30px;margin-top: 50px; margin-left: 20px;"><- Trở về</button>
 
     </a>
 
@@ -302,26 +302,56 @@
         <!--/ End Copyright -->
     </footer>
     <script>
-        const ctx = document.getElementById('myChart');
+        var c;
+        var d;
+        var h;
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Chưa bắt đầu', 'Đang thực hiện', 'Hoàn thành'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3],
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+        $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GetStatus", "SupportTicket")',
+            type: 'GET',
+            dataType: 'json',
+            cache: true,
+            success: function (data) {
+                c = 0; d = 0; h = 0;
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i] == "C")
+                        c++;
+                    if (data[i] == "D")
+                        d++;
+                    if (data[i] == "H")
+                        h++;
+                }
+                chart();
+                
+            }
+           });
+            
+        });
+
+        function chart() {
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Chưa bắt đầu', 'Đang thực hiện', 'Hoàn thành'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [c, d, h],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+        
     </script>
     <script>
         function openForm() {

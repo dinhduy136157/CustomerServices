@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Data.Entity.Migrations.Model;
+using Newtonsoft.Json;
 
 namespace CustomerServices.Controllers
 {
@@ -84,7 +85,13 @@ namespace CustomerServices.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+        
+        public ActionResult GetStatus()
+        {
+            var statusArray = _context.Support_Tickets.Select(x => x.status).ToArray();
 
+            return Json(statusArray, JsonRequestBehavior.AllowGet);
+        }
         
         
     }
