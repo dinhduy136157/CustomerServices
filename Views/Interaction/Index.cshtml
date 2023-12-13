@@ -47,6 +47,8 @@
     <link rel="stylesheet" href="~/Content/normalize.css">
     <link rel="stylesheet" href="~/Content/style.css" />
     <link rel="stylesheet" href="~/Content/responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </head>
 
@@ -108,14 +110,14 @@
     <!-- Start CM -->
 
     <div class="customManage" id="interactionM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
-		<p style="font-size: 25px; color: rgb(1, 162, 255);; font-weight: bold;">
-			Quản Lý Tương Tác Khách Hàng
-		</p>
+        <p style="font-size: 25px; color: rgb(1, 162, 255);; font-weight: bold;">
+            Quản Lý Tương Tác Khách Hàng
+        </p>
 
         <div class="flex-container">
             <!-- Danh sách yêu cầu hỗ trợ -->
             <div class="form-container" id="formShow">
-                
+
 
                 <!-- Bảng yêu cầu khách hàng -->
                 <table>
@@ -200,8 +202,8 @@
 
             <!-- Sửa thông tin khách hàng -->
             <form action="@Url.Action("Edit", "Interaction")" method="post">
-                  <div class="form-container">
-                        <div style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
+                <div class="form-container">
+                    <div style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
                         <h2>Sửa thông tin tương tác</h2>
                         <label for="editName">ID: </label>
                         <input type="number" name="interaction_id" placeholder="Nhập ID">
@@ -228,11 +230,26 @@
                     <button style="width: 100px;" type="submit">Xóa</button>
                 </div>
             </form>
-            
-            </div>
-
 
         </div>
+
+
+    </div>
+    @*---------------------------------------------UPDATE------------------------------------------*@
+    <div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
+        <p style="font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
+            Thống kê
+        </p>
+
+        <div class="flex-container">
+            <div class="form-container " id="formShow">
+                <div class="chart-container" style="height:50vh; width:90vw; margin-left: 200px;">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="/Home/index">
         <button style="margin-bottom: 30px; margin-left: 20px;"><- Trở về</button>
 
@@ -261,6 +278,63 @@
         </div>
         <!--/ End Copyright -->
     </footer>
+    <script>
+    var m;
+    var e;
+    var p;
+
+    $(document).ready(function () {
+    $.ajax({
+        url: '@Url.Action("GetType", "Interaction")',
+        type: 'GET',
+        dataType: 'json',
+        cache: true,
+        success: function (data) {
+            m = 0; e = 0; p = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i] == "M")
+                    m++;
+                if (data[i] == "E")
+                    e++;
+                if (data[i] == "P")
+                    p++;
+            }
+            chart();
+
+        }
+       });
+
+    });
+
+    function chart() {
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Gặp trực tiếp', 'Email', 'Điện thoại'],
+                datasets: [{
+                    label: ' Số lượng',
+                    data: [m, e, p],
+                    borderWidth: 1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)'
+                    ],
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    </script>
     <script>
         function openForm() {
             document.getElementById('addForm').style.display = 'block';

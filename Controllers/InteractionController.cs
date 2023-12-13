@@ -84,5 +84,11 @@ namespace CustomerServices.Controllers
             _context.SaveChanges();
             return RedirectToAction("index");
         }
+        public ActionResult GetType()
+        {
+            var typeArray = _context.Interactions.Select(x => x.interaction_type).ToArray();
+
+            return Json(typeArray, JsonRequestBehavior.AllowGet);
+        }
     }
 }
