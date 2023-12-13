@@ -115,13 +115,7 @@
         <div class="flex-container">
             <!-- Danh sách yêu cầu hỗ trợ -->
             <div class="form-container" id="formShow">
-                <h2>Danh sách tương tác khách hàng</h2>
-                <!-- Label và textbox cho Mã KH và Tên KH -->
-                <label for="maKH">Mã KH:</label>
-                <input type="text" id="maKH" placeholder="Nhập Mã KH">
-
-                <label for="tenKH">Tên KH:</label>
-                <input type="text" id="tenKH" placeholder="Nhập Tên KH">
+                
 
                 <!-- Bảng yêu cầu khách hàng -->
                 <table>
@@ -185,12 +179,11 @@
                             <td>
                                 <input type="text" name="description" placeholder="Nhập nội dung" />
                             </td>
-
-                            <td>
-                                <input type="hidden" name="interaction_date" value="@DateTime.Now" />
+                            <td colspan="2">
+                                <button style="margin-left: 40px; margin-top: -20px; padding-left: 40px; padding-right: 40px;" type="submit">Thêm</button>
                             </td>
+                            <input type="hidden" name="interaction_date" value="@DateTime.Now" />
                         </tr>
-                        <button type="submit">Thêm</button>
 
                         </form>
 

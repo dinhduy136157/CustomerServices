@@ -47,6 +47,9 @@
     <link rel="stylesheet" href="~/Content/normalize.css">
     <link rel="stylesheet" href="~/Content/style.css" />
     <link rel="stylesheet" href="~/Content/responsive.css">
+    <link rel="stylesheet" href="~/Content/update.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
@@ -108,14 +111,14 @@
     <!-- Start CM -->
 
     <div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
-        <p style="font-size: 25px; color: rgb(1, 162, 255);; font-weight: bold;">
+        <p style="font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
             Quản Lý Yêu Cầu Hỗ Trợ
         </p>
 
         <div class="flex-container">
             <!-- Danh sách yêu cầu hỗ trợ -->
-            <div class="form-container" id="formShow">
-                
+            <div class="form-container " id="formShow">
+
 
                 <!-- Bảng yêu cầu khách hàng -->
                 <table>
@@ -203,15 +206,14 @@
                                     <option value="H">Hoàn thành</option>
                                 </select>
                             </td>
+                            <td colspan="2">
+                                <button style="margin-left: 40px; margin-top: -20px; padding-left: 40px; padding-right: 40px;" type="submit">Thêm</button>
+                            </td>
+                            <input type="hidden" name="created_at" value="@DateTime.Now" />
+                            <input type="hidden" name="updated_at" value="@DateTime.Now" />
 
-                            <td>
-                                <input type="hidden" name="created_at" value="@DateTime.Now" />
-                            </td>
-                            <td>
-                                <input type="hidden" name="updated_at" value="@DateTime.Now" />
-                            </td>
+
                         </tr>
-                        <button type="submit">Thêm</button>
 
                         </form>
 
@@ -248,15 +250,28 @@
                     <h2>Xoá yêu cầu</h2>
                     <label for="editName">ID cần xoá: </label>
                     <input type="number" name="id" placeholder="Nhập ID">
-                    <button style="width: 100px;" style="submit">Xóa</button>
+                    <button style="width: 100px;" type="submit">Xóa</button>
                 </div>
             </form>
-            
-            </div>
-
 
         </div>
 
+
+    </div>
+
+    </div>
+    @*---------------------------------------------UPDATE------------------------------------------*@
+<div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
+    <p style="font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
+        Thống kê
+    </p>
+
+    <div class="flex-container">
+        <div class="form-container " id="formShow">
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
     </div>
     <a href="/Home/index">
         <button style="margin-bottom: 30px; margin-left: 20px;"><- Trở về</button>
@@ -286,6 +301,28 @@
         </div>
         <!--/ End Copyright -->
     </footer>
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Chưa bắt đầu', 'Đang thực hiện', 'Hoàn thành'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3],
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
     <script>
         function openForm() {
             document.getElementById('addForm').style.display = 'block';

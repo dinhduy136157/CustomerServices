@@ -161,29 +161,29 @@
                         <!-- Dòng trống để thêm mới -->
 
                         <form action="@Url.Action("Create", "Customer")" method="post">
-                            <tr id="newRow">
-                                <td class="stt"></td>
-                                <td>
-                                    <input type="text" name="first_name" placeholder="Nhập Họ" />
-                                </td>
-                                <td>
-                                    <input type="text" name="last_name" placeholder="Nhập Tên" />
-                                </td>
-                                <td >
-                                    <input type="text" name="phone" placeholder="Nhập SĐT" />
-                                </td>
-                                <td >
-                                    <input type="text" name="email" placeholder="Nhập Email" />
-                                </td>
-                                <td >
-                                    <input type="text" name="address" placeholder="Nhập địa chỉ" />
-                                </td>
-                                <td>
-                                    <input type="hidden" name="created_at" value="@DateTime.Now" />
-                                    <input type="hidden" name="updated_at" value="@DateTime.Now" />
-                                </td>
-                            </tr>
-                            <button  type="submit">Thêm</button>
+                        <tr id="newRow">
+                            <td class="stt"></td>
+                            <td>
+                                <input type="text" name="first_name" placeholder="Nhập Họ" />
+                            </td>
+                            <td>
+                                <input type="text" name="last_name" placeholder="Nhập Tên" />
+                            </td>
+                            <td>
+                                <input type="text" name="phone" placeholder="Nhập SĐT" />
+                            </td>
+                            <td>
+                                <input type="text" name="email" placeholder="Nhập Email" />
+                            </td>
+                            <td>
+                                <input type="text" name="address" placeholder="Nhập địa chỉ" />
+                            </td>
+                            <td>
+                                <button style="margin-left: 10px; margin-top: -20px; padding-left: 40px; padding-right: 40px;" type="submit">Thêm</button>
+                            </td>
+                            <input type="hidden" name="created_at" value="@DateTime.Now" />
+                            <input type="hidden" name="updated_at" value="@DateTime.Now" />
+                        </tr>
                         </form>
 
                     </tbody>
