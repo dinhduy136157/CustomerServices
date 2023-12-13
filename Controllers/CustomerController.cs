@@ -79,5 +79,11 @@ namespace CustomerService.Controllers
             _context.SaveChanges();
             return RedirectToAction("index");
         }
+        public ActionResult GetAddress()
+        {
+            var typeArray = _context.Customers.Select(x => x.address).ToArray();
+
+            return Json(typeArray, JsonRequestBehavior.AllowGet);
+        }
     }
 }

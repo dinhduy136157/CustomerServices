@@ -79,7 +79,7 @@
                     <div class="col-lg-3 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="img/logo.png" alt="#"></a>
+                            <a href="/home"><img src="~/Content/logo.png" alt="#"></a>
                         </div>
                         <!-- End Logo -->
                         <!-- Mobile Nav -->
@@ -91,7 +91,7 @@
                         <div class="main-menu">
                             <nav class="navigation">
                                 <ul class="nav menu">
-                                    <li><a href="#header">Home <i class="icofont-rounded-down"></i></a></li>
+                                    <li><a href="#header">Home</a></li>
                                     <li class="active"><a href="#customerM">Customer List</a></li>
                                     <li><a href="#supportM">Support List </a></li>
                                     <li><a href="#interactionM">Interaction List</a></li>
@@ -111,7 +111,7 @@
     <!-- Start CM -->
 
     <div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
-        <p style="font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
+        <p style="margin-left: 30px; font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
             Quản Lý Yêu Cầu Hỗ Trợ
         </p>
 
@@ -227,19 +227,21 @@
 
             <!-- Sửa thông tin khách hàng -->
             <form action="@Url.Action("Edit", "SupportTicket")" method="post">
-                <div class="form-container" id="editInfo">
+                <div class="form-container" style="width: 80%;" id="editInfo">
                     <div class="custom_remove" style="padding: 20px; border: 1px solid #ccc; margin-top: 30px; ">
                         <h2>Sửa yêu cầu</h2>
                         <label>ID cần sửa: </label>
                         <input type="number" name="ticket_id" placeholder="Nhập ID">
                         <label>Chủ đề: </label>
                         <input type="text" name="subject" placeholder="Nhập chủ đề">
-                        <label>Mô tả: </label>
+
+
                         <select name="status">
                             <option value="C">Chưa bắt đầu</option>
                             <option value="D">Đang thực hiện</option>
                             <option value="H">Hoàn thành</option>
                         </select>
+                        <label style="margin-left:-150px; margin-top:50px;">Mô tả: </label>
                         <input type="textArea" name="description" placeholder="Nhập nội dung yêu cầu" style="height: 150px;">
                         <input type="hidden" name="updated_at" value="@DateTime.Now" />
                         <button style="width: 100px;" type="submit">Sửa</button>
@@ -261,7 +263,7 @@
 
     @*---------------------------------------------UPDATE------------------------------------------*@
     <div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
-    <p style="font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
+    <p style="margin-left: 30px; font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
         Thống kê
     </p>
 

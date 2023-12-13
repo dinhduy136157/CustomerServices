@@ -47,11 +47,12 @@
     <link rel="stylesheet" href="~/Content/normalize.css">
     <link rel="stylesheet" href="~/Content/style.css" />
     <link rel="stylesheet" href="~/Content/responsive.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
-    
+
     <!-- Preloader -->
     <div class="preloader">
         <div class="loader">
@@ -76,7 +77,7 @@
                     <div class="col-lg-3 col-md-3 col-12">
                         <!-- Start Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="img/logo.png" alt="#"></a>
+                            <a href="/home"><img src="~/Content/logo.png" alt="#"></a>
                         </div>
                         <!-- End Logo -->
                         <!-- Mobile Nav -->
@@ -88,7 +89,7 @@
                         <div class="main-menu">
                             <nav class="navigation">
                                 <ul class="nav menu">
-                                    <li><a href="#header">Home <i class="icofont-rounded-down"></i></a></li>
+                                    <li><a href="#header">Home</a></li>
                                     <li class="active"><a href="#customerM">Customer List</a></li>
                                     <li><a href="#supportM">Support List </a></li>
                                     <li><a href="#interactionM">Interaction List</a></li>
@@ -108,7 +109,7 @@
     <!-- Start CM -->
 
     <div class="customManage" id="customerM" style="padding-top: 30px; border: 1px 0 1px 0 solid #ccc; margin-bottom: 20px;">
-        <p style="font-size: 25px; color: rgb(1, 162, 255);; font-weight: bold;">
+        <p style="margin-left: 30px; font-size: 25px; color: rgb(1, 162, 255);; font-weight: bold;">
             Quản Lý Thông Tin Khách Hàng
         </p>
 
@@ -135,22 +136,22 @@
                         {
                             <tr>
                                 <td class="stt">@item.customer_id</td>
-                                <td   id="name">
+                                <td id="name">
                                     @item.first_name
                                 </td>
-                                <td   id="status">
+                                <td id="status">
                                     @item.last_name
                                 </td>
-                                <td   id="phone">
+                                <td id="phone">
                                     @item.phone
                                 </td>
-                                <td   id="email">
+                                <td id="email">
                                     @item.email
                                 </td>
-                                <td   id="request">
+                                <td id="request">
                                     @item.address
                                 </td>
-                                <td   id="request">
+                                <td id="request">
                                     @item.created_at
                                 </td>
 
@@ -197,11 +198,11 @@
                         <button style="width: 100px;">Xóa</button>
                     </div>
                 </form>
-                
+
             </div>
 
             <!-- Sửa thông tin khách hàng -->
-            
+
             <div class="form-container" id="editInfo">
                 <form action="@Url.Action("Edit", "Customer")" method="post">
                     <h2>Sửa thông tin khách hàng</h2>
@@ -229,6 +230,20 @@
         </div>
 
     </div>
+    @*---------------------------------------------UPDATE------------------------------------------*@
+    <div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
+        <p style="margin-left: 30px; font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
+            Thống kê
+        </p>
+
+        <div class="flex-container">
+            <div class="form-container " id="formShow">
+                <div class="chart-container" style="height:50vh; width:90vw; margin-left: 200px;">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
     <a href="/Home/index">
         <button style="margin-bottom: 30px; margin-left: 20px;"><- Trở về</button>
 
@@ -237,7 +252,6 @@
 
     <!-- End CM -->
     <!-- Start SM -->
-
     <!-- Footer Area -->
     <footer id="footer" class="footer ">
 
@@ -258,6 +272,67 @@
         </div>
         <!--/ End Copyright -->
     </footer>
+    <script>
+        var tphcm, th, hn, hp, nd, hd, bg;
+
+    $(document).ready(function () {
+    $.ajax({
+        url: '@Url.Action("GetAddress", "Customer")',
+        type: 'GET',
+        dataType: 'json',
+        cache: true,
+        success: function (data) {
+            tphcm = 0; th = 0; hn = 0; hp = 0; nd = 0; hd = 0; bg = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i] == "TPHCM")
+                    tphcm++;
+                if (data[i] == "Thanh Hoá")
+                    th++;
+                if (data[i] == "Hà Nội")
+                    hn++;
+                if (data[i] == "Hải Phòng")
+                    hp++;
+                if (data[i] == "Nam Định")
+                    nd++;
+                if (data[i] == "Hải Dương")
+                    hd++;
+                if (data[i] == "Bắc Giang")
+                    bg++;
+
+            }
+            chart();
+
+        }
+       });
+
+    });
+
+    function chart() {
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['TPHCM', 'Thanh Hoá', 'Hà Nội', 'Hải Phòng', 'Nam Định', 'Hải Dương', 'Bắc Giang'],
+                datasets: [{
+                    label: 'Người dùng các tỉnh thành',
+                    data: [tphcm, th, hn, hp, nd, hd, bg],
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    </script>
     <script>
         function openForm() {
             document.getElementById('addForm').style.display = 'block';
