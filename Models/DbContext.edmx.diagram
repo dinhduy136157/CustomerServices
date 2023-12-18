@@ -17,6 +17,8 @@
         <AssociationConnector Association="TTCSNModel.fk_interaction_customer" ManuallyRouted="false" />
         <AssociationConnector Association="TTCSNModel.fk_ticket_customer" ManuallyRouted="false" />
         <AssociationConnector Association="TTCSNModel.fk_transaction_customer" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TTCSNModel.reply" Width="1.5" PointX="5.25" PointY="10.375" />
+        <AssociationConnector Association="TTCSNModel.FK__replies__ticket___6FE99F9F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

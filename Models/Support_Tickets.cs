@@ -14,6 +14,12 @@ namespace CustomerServices.Models
     
     public partial class Support_Tickets
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Support_Tickets()
+        {
+            this.replies = new HashSet<reply>();
+        }
+    
         public long ticket_id { get; set; }
         public Nullable<long> customer_id { get; set; }
         public string subject { get; set; }
@@ -23,5 +29,7 @@ namespace CustomerServices.Models
         public Nullable<System.DateTime> updated_at { get; set; }
     
         public virtual Customer Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<reply> replies { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TTCSNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TTCSNModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contracts">
           <Key>
             <PropertyRef Name="contract_id" />
@@ -47,6 +47,17 @@
           <Property Name="interaction_date" Type="datetime" />
           <Property Name="description" Type="text" />
         </EntityType>
+        <EntityType Name="replies">
+          <Key>
+            <PropertyRef Name="replie_id" />
+          </Key>
+          <Property Name="replie_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="staff" Type="nvarchar" MaxLength="50" />
+          <Property Name="title" Type="nvarchar" MaxLength="200" />
+          <Property Name="content" Type="text" />
+          <Property Name="created_at" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="ticket_id" Type="bigint" />
+        </EntityType>
         <EntityType Name="Support_Tickets">
           <Key>
             <PropertyRef Name="ticket_id" />
@@ -79,6 +90,18 @@
           <Property Name="transaction_type" Type="datetime" />
           <Property Name="amount" Type="float" />
         </EntityType>
+        <Association Name="FK__replies__ticket___6FE99F9F">
+          <End Role="Support_Tickets" Type="Self.Support_Tickets" Multiplicity="0..1" />
+          <End Role="replies" Type="Self.replies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Support_Tickets">
+              <PropertyRef Name="ticket_id" />
+            </Principal>
+            <Dependent Role="replies">
+              <PropertyRef Name="ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_contract_customer">
           <End Role="Customers" Type="Self.Customers" Multiplicity="0..1" />
           <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
@@ -144,9 +167,14 @@
           <EntitySet Name="Customer_Notes" EntityType="Self.Customer_Notes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Interactions" EntityType="Self.Interactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="replies" EntityType="Self.replies" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Support_Tickets" EntityType="Self.Support_Tickets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__replies__ticket___6FE99F9F" Association="Self.FK__replies__ticket___6FE99F9F">
+            <End Role="Support_Tickets" EntitySet="Support_Tickets" />
+            <End Role="replies" EntitySet="replies" />
+          </AssociationSet>
           <AssociationSet Name="fk_contract_customer" Association="Self.fk_contract_customer">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Contracts" EntitySet="Contracts" />
@@ -168,8 +196,7 @@
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TTCSNModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -235,6 +262,7 @@
           <Property Name="created_at" Type="DateTime" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Customer" Relationship="Self.fk_ticket_customer" FromRole="Support_Tickets" ToRole="Customers" />
+          <NavigationProperty Name="replies" Relationship="TTCSNModel.FK__replies__ticket___6FE99F9F" FromRole="Support_Tickets" ToRole="reply" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -345,7 +373,36 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
+          <EntitySet Name="replies" EntityType="TTCSNModel.reply" />
+          <AssociationSet Name="FK__replies__ticket___6FE99F9F" Association="TTCSNModel.FK__replies__ticket___6FE99F9F">
+            <End Role="Support_Tickets" EntitySet="Support_Tickets" />
+            <End Role="reply" EntitySet="replies" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="reply">
+          <Key>
+            <PropertyRef Name="replie_id" />
+          </Key>
+          <Property Name="replie_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="staff" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="ticket_id" Type="Int64" />
+          <NavigationProperty Name="Support_Tickets" Relationship="TTCSNModel.FK__replies__ticket___6FE99F9F" FromRole="reply" ToRole="Support_Tickets" />
+        </EntityType>
+        <Association Name="FK__replies__ticket___6FE99F9F">
+          <End Type="TTCSNModel.Support_Tickets" Role="Support_Tickets" Multiplicity="0..1" />
+          <End Type="TTCSNModel.reply" Role="reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Support_Tickets">
+              <PropertyRef Name="ticket_id" />
+            </Principal>
+            <Dependent Role="reply">
+              <PropertyRef Name="ticket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -430,6 +487,18 @@
                 <ScalarProperty Name="transaction_date" ColumnName="transaction_date" />
                 <ScalarProperty Name="transaction_type" ColumnName="transaction_type" />
                 <ScalarProperty Name="amount" ColumnName="amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="replies">
+            <EntityTypeMapping TypeName="TTCSNModel.reply">
+              <MappingFragment StoreEntitySet="replies">
+                <ScalarProperty Name="ticket_id" ColumnName="ticket_id" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="content" ColumnName="content" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="staff" ColumnName="staff" />
+                <ScalarProperty Name="replie_id" ColumnName="replie_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

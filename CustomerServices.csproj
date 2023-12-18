@@ -163,6 +163,9 @@
     <Compile Include="Models\Interaction.cs">
       <DependentUpon>DbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\reply.cs">
+      <DependentUpon>DbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Support_Tickets.cs">
       <DependentUpon>DbContext.tt</DependentUpon>
     </Compile>

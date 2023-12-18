@@ -32,5 +32,6 @@ namespace CustomerServices.Models
         public virtual DbSet<Support_Tickets> Support_Tickets { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<reply> replies { get; set; }
     }
 }
