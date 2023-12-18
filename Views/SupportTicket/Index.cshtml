@@ -159,15 +159,15 @@
                                 <td>
                                     @if (@item.status == "C")
                                     {
-                                        <p style="color: red;">Chưa bắt đầu</p>
+                                    <p style="color: red;">Chưa bắt đầu</p>
                                     }
                                     @if (@item.status == "D")
                                     {
-                                        <p style="color: black;">Đang thực hiện</p>
+                                    <p style="color: black;">Đang thực hiện</p>
                                     }
                                     @if (item.status == "H")
                                     {
-                                        <p style="color: lawngreen;">Hoàn thành</p>
+                                    <p style="color: lawngreen;">Hoàn thành</p>
                                     }
                                 </td>
                                 <td>
@@ -260,17 +260,17 @@
 
     @*---------------------------------------------UPDATE------------------------------------------*@
     <div class="customManage" id="supportM" style="padding-top: 30px; border-top: 1px solid #ccc; margin: 50px 0;">
-    <p style="margin-left: 30px; font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
-        Thống kê
-    </p>
+        <p style="margin-left: 30px; font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
+            Thống kê
+        </p>
 
-    <div class="flex-container">
-        <div class="form-container " id="formShow">
-            <div class="chart-container" style="height:50vh; width:90vw; margin-left: 200px;">
-                <canvas  id="myChart"></canvas>
+        <div class="flex-container">
+            <div class="form-container " id="formShow">
+                <div class="chart-container" style="height:50vh; width:90vw; margin-left: 200px;">
+                    <canvas id="myChart"></canvas>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <a href="/Home/index">
@@ -322,10 +322,10 @@
                         h++;
                 }
                 chart();
-                
+
             }
            });
-            
+
         });
 
         function chart() {
@@ -355,7 +355,7 @@
                 }
             });
         }
-        
+
     </script>
     <script>
         function openForm() {
