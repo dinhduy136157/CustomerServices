@@ -1,0 +1,224 @@
+﻿@model CustomerServices.Models.Support_Tickets
+@{
+    Layout = null;
+}
+
+
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="Site keywords here">
+    <meta name="description" content="">
+    <meta name='copyright' content=''>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Title -->
+    <title>Phần mềm quản lý tương tác khách hàng.</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="~/Content/favicon.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+    <!-- Nice Select CSS -->
+    <link rel="stylesheet" href="~/Content/nice-select.css">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="~/Content/font-awesome.min.css">
+    <!-- icofont CSS -->
+    <link rel="stylesheet" href="~/Content/icofont.css">
+    <!-- Slicknav -->
+    <link rel="stylesheet" href="~/Content/slicknav.min.css">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="~/Content/owl-carousel.css">
+    <!-- Datepicker CSS -->
+    <link rel="stylesheet" href="~/Content/datepicker.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="~/Content/animate.min.css">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" href="~/Content/magnific-popup.css">
+
+    <!-- Medipro CSS -->
+    <link rel="stylesheet" href="~/Content/normalize.css">
+    <link rel="stylesheet" href="~/Content/style.css" />
+    <link rel="stylesheet" href="~/Content/responsive.css">
+    <link rel="stylesheet" href="~/Content/update.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader-outter"></div>
+            <div class="loader-inner"></div>
+
+            <div class="indicator">
+                <svg width="16px" height="12px">
+                    <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                    <polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader -->
+    <!-- Header Area -->
+    <!-- Header Inner -->
+    <div class="header header-inner">
+        <div class="container">
+            <div class="inner">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <!-- Start Logo -->
+                        <div class="logo">
+                            <a href="/home"><img src="~/Content/logo.png" alt="#"></a>
+                        </div>
+                        <!-- End Logo -->
+                        <!-- Mobile Nav -->
+                        <div class="mobile-nav"></div>
+                        <!-- End Mobile Nav -->
+                    </div>
+                    <div class="col-lg-7 col-md-9 col-12">
+                        <!-- Main Menu -->
+                        <div class="main-menu">
+                            <nav class="navigation">
+                                <ul class="nav menu">
+                                    <li><a href="#header">Home</a></li>
+                                    <li class="active"><a href="#customerM">Customer List</a></li>
+                                    <li><a href="#supportM">Support List </a></li>
+                                    <li><a href="#interactionM">Interaction List</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!--/ End Main Menu -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="customManage" id="supportM" style="padding-top: 30px; width: 120%; border-top: 1px solid #ccc; margin: 50px 0;">
+        <p style="margin-left: 30px; font-size: 25px; color: rgb(1, 162, 255); font-weight: bold;">
+            Xử lý yêu cầu khách hàng
+        </p>
+
+        <div class="flex-container">
+            <!-- Danh sách yêu cầu hỗ trợ -->
+            <div class="form-container " id="formShow">
+                <form action="@Url.Action("reply", "SupportTicket")" method="post">
+                    <h5>Mã phiếu: @Model.ticket_id </h5>
+                    <h5>Tên khách hàng: @Model.Customer.first_name @Model.Customer.last_name</h5>
+                    <h5>Nhân viên xử lý: </h5>
+                    <label>Email KH: </label>
+                    <div>@Model.Customer.email</div>
+                    <label>Tên nhân viên: </label>
+                    
+                    <input style="width: 10%; height: 35px;" name="name" value="dinhduy136157" />
+                    <br />
+                    <label>Tiêu đề: </label>
+                    <input style="width: 10%; height: 35px;" name="name" value="@Model.subject" />
+                    <br />
+                    <label>Yêu cầu của khách hàng: </label>
+                    <div>@Model.description</div>
+                    <br />
+                    <label>Nội dung xử lý yêu cầu:</label>
+                    <textarea style="width: 40%"></textarea>
+                    <br />
+                    <button type="submit">Xử lý</button>
+                </form>
+
+            </div>
+        </div>
+        <a href="/Home/SupportTicket">
+            <button style="margin-bottom: 30px;margin-top: 50px; margin-left: 20px;"><- Trở về</button>
+
+        </a>
+
+        <script>
+            function openForm() {
+                document.getElementById('addForm').style.display = 'block';
+                addNewRow();
+            }
+
+            function addNewRow() {
+                var table = document.querySelector("table tbody");
+                var newRow = document.getElementById("newRow").cloneNode(true);
+
+                // Lấy STT của dòng cuối cùng
+                var lastStt = parseInt(table.rows[table.rows.length - 1].querySelector('.stt').textContent, 10);
+
+                // Tăng giá trị STT lên 1 và gán cho dòng mới
+                newRow.querySelector('.stt').textContent = lastStt + 1;
+
+                newRow.id = "newRow" + (table.rows.length + 1);
+                table.appendChild(newRow);
+            }
+
+            function closeForm() {
+                document.getElementById('addForm').style.display = 'none';
+                document.getElementById('editForm').style.display = 'none';
+            }
+
+            function clearDefaultText(element) {
+                // Kiểm tra nếu nội dung là mặc định thì xóa
+                var defaultValues = ["Nhập tên", "Nhập SĐT", "Nhập Email", "Nhập nội dung yêu cầu", "Nhập trạng thái xử lý", "Nhập thời gian yêu cầu"];
+                if (defaultValues.includes(element.textContent)) {
+                    element.textContent = "";
+                }
+            }
+        </script>
+
+        <!-- Footer Area -->
+        <!--/ End Footer Area -->
+        <!-- jquery Min JS -->
+        <script src="~/Content/jquery.min.js"></script>
+        <!-- jquery Migrate JS -->
+        <script src="~/Content/jquery-migrate-3.0.0.js"></script>
+        <!-- jquery Ui JS -->
+        <script src="~/Content/jquery-ui.min.js"></script>
+        <!-- Easing JS -->
+        <script src="~/Content/easing.js"></script>
+        <!-- Color JS -->
+        <script src="~/Content/colors.js"></script>
+        <!-- Popper JS -->
+        <script src="~/Content/popper.min.js"></script>
+        <!-- Bootstrap Datepicker JS -->
+        <script src="~/Content/bootstrap-datepicker.js"></script>
+        <!-- Jquery Nav JS -->
+        <script src="~/Content/jquery.nav.js"></script>
+        <!-- Slicknav JS -->
+        <script src="~/Content/slicknav.min.js"></script>
+        <!-- ScrollUp JS -->
+        <script src="~/Content/jquery.scrollUp.min.js"></script>
+        <!-- Niceselect JS -->
+        <script src="~/Content/niceselect.js"></script>
+        <!-- Tilt Jquery JS -->
+        <script src="~/Content/tilt.jquery.min.js"></script>
+        <!-- Owl Carousel JS -->
+        <script src="~/Content/owl-carousel.js"></script>
+        <!-- counterup JS -->
+        <script src="~/Content/jquery.counterup.min.js"></script>
+        <!-- Steller JS -->
+        <script src="~/Content/steller.js"></script>
+        <!-- Wow JS -->
+        <script src="~/Content/wow.min.js"></script>
+        <!-- Magnific Popup JS -->
+        <script src="~/Content/jquery.magnific-popup.min.js"></script>
+        <!-- Counter Up CDN JS -->
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="~/Content/bootstrap.min.js"></script>
+        <!-- Main JS -->
+        <script src="~/Content/main.js"></script>
+</body>
+</html>

@@ -246,6 +246,7 @@
     <Content Include="Views\Customer\index.cshtml" />
     <Content Include="Views\Interaction\Index.cshtml" />
     <Content Include="Views\SupportTicket\Index.cshtml" />
+    <Content Include="Views\SupportTicket\Reply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

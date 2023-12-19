@@ -92,7 +92,17 @@ namespace CustomerServices.Controllers
 
             return Json(statusArray, JsonRequestBehavior.AllowGet);
         }
-        
-        
+        [HttpGet]
+        public ActionResult Reply(int id)
+        {
+            /*var data = _context.replies.Include(x => x.Support_Tickets).Where(x => x.ticket_id == id).FirstOrDefault();*/
+            var data = _context.Support_Tickets.Where(x => x.ticket_id == id).FirstOrDefault();       
+                return View(data);
+        }
+        [HttpPost]
+        public ActionResult Reply(string message)
+        {
+            return View();
+        }
     }
 }

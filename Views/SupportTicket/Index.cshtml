@@ -133,6 +133,7 @@
                             <th>Trạng thái</th>
                             <th>Ngày tạo yêu cầu</th>
                             <th>Ngày cập nhật</th>
+                            <th>Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -175,6 +176,9 @@
                                 </td>
                                 <td>
                                     @item.updated_at
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("reply", "SupportTicket", new {id = @item.ticket_id}, null)">Handle</a>
                                 </td>
                             </tr>
                         }
