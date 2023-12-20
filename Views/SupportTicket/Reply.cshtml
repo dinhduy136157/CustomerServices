@@ -117,29 +117,31 @@
             <div class="form-container " id="formShow">
                 <form action="@Url.Action("reply", "SupportTicket")" method="post">
                     <h5>Mã phiếu: @Model.ticket_id </h5>
+                    <input type="hidden" name="ticket_id" value="@Model.ticket_id" />
                     <h5>Tên khách hàng: @Model.Customer.first_name @Model.Customer.last_name</h5>
-                    <h5>Nhân viên xử lý: </h5>
                     <label>Email KH: </label>
                     <div>@Model.Customer.email</div>
-                    <label>Tên nhân viên: </label>
-                    
-                    <input style="width: 10%; height: 35px;" name="name" value="dinhduy136157" />
+                    <select name="staff">
+                        <option value="dinhduy136157">dinhduy136157</option>
+                        <option value="huykhoi">huykhoi</option>
+                    </select>
                     <br />
                     <label>Tiêu đề: </label>
-                    <input style="width: 10%; height: 35px;" name="name" value="@Model.subject" />
+                    <input style="width: 10%; height: 35px;" name="title" value="@Model.subject" />
                     <br />
                     <label>Yêu cầu của khách hàng: </label>
                     <div>@Model.description</div>
                     <br />
                     <label>Nội dung xử lý yêu cầu:</label>
-                    <textarea style="width: 40%"></textarea>
+                    <textarea name="content" style="width: 40%"></textarea>
                     <br />
-                    <button type="submit">Xử lý</button>
+@*                    <input type="hidden" name="created_at" value="@DateTime.Now" />
+*@                    <button type="submit">Xử lý</button>
                 </form>
 
             </div>
         </div>
-        <a href="/Home/SupportTicket">
+        <a href="/SupportTicket">
             <button style="margin-bottom: 30px;margin-top: 50px; margin-left: 20px;"><- Trở về</button>
 
         </a>

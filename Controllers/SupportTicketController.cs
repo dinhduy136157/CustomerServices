@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using System.Data.Entity.Migrations.Model;
 using Newtonsoft.Json;
+using System.Web.Helpers;
 
 namespace CustomerServices.Controllers
 {
@@ -100,8 +101,17 @@ namespace CustomerServices.Controllers
                 return View(data);
         }
         [HttpPost]
-        public ActionResult Reply(string message)
+        public ActionResult Reply(reply model)
         {
+            /*------------------------ADD DATA TO REPLY TABLE----------------*/
+            _context.replies.Add(model);
+            _context.SaveChanges();
+
+
+
+
+            /*------------------------SEND EMAIL--------------------------*/
+            /*WebMail.Send(user)*/
             return View();
         }
     }
