@@ -53,6 +53,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        .row-left h6{
+            margin-top: 30px;
+        }
+        .btn-under{
+            margin-top: 60px;
+        }
+    </style>
 </head>
 
 <body>
@@ -116,27 +124,35 @@
             <!-- Danh sách yêu cầu hỗ trợ -->
             <div class="form-container " id="formShow">
                 <form action="@Url.Action("reply", "SupportTicket")" method="post">
-                    <h5>Mã phiếu: @Model.ticket_id </h5>
+                    
                     <input type="hidden" name="ticket_id" value="@Model.ticket_id" />
-                    <h5>Tên khách hàng: @Model.Customer.first_name @Model.Customer.last_name</h5>
-                    <label>Email KH: </label>
-                    <div>@Model.Customer.email</div>
-                    <select name="staff">
-                        <option value="dinhduy136157">dinhduy136157</option>
-                        <option value="huykhoi">huykhoi</option>
-                    </select>
-                    <br />
-                    <label>Tiêu đề: </label>
-                    <input style="width: 10%; height: 35px;" name="title" value="@Model.subject" />
-                    <br />
-                    <label>Yêu cầu của khách hàng: </label>
-                    <div>@Model.description</div>
-                    <br />
-                    <label>Nội dung xử lý yêu cầu:</label>
-                    <textarea name="content" style="width: 40%"></textarea>
-                    <br />
-@*                    <input type="hidden" name="created_at" value="@DateTime.Now" />
-*@                    <button type="submit">Xử lý</button>
+                    <div class="row">
+                        <div class="col-2 row-left">
+                            <h6>Mã phiếu:</h6>
+                            <h6>Tên khách hàng: </h6>
+                            <h6>Email KH: </h6>
+                            <h6>Nhân viên xử lý: </h6>
+                            <h6 style="margin-top: 45px;">Tiêu đề: </h6>
+                            <h6 style="margin-top: 45px;">Yêu cầu của khách hàng: </h6>
+                            <h6 style="margin-top: 45px;">Nội dung xử lý yêu cầu:</h6>
+                        </div>
+                        <div class="col-7 row-right">
+                            <div style="margin-top: 24px;">@Model.ticket_id</div>
+                            <div style="margin-top: 25px;">@Model.Customer.first_name @Model.Customer.last_name</div>
+                            <div style="margin-top: 26px;">@Model.Customer.email</div>
+                            <div style="margin-top: 20px;">
+                                <input style="width: 50%;" name="staff" placeholder="Nhập tên nhân viên.." />
+                            </div>
+                            <br />
+                            <div style="margin-top: -25px;">
+                                <input style="width: 50%;" name="title" value="@Model.subject" />
+                            </div>
+                            <div style="margin-top: 10px;">@Model.description</div>
+                            <br />
+                            <textarea name="content" style="width: 40%" rows="5" cols="50" placeholder="Nhập nội dung xử lý.."></textarea>
+                        </div>
+                    </div>   
+                    <button class="btn-under" type="submit">Xử lý</button>
                 </form>
 
             </div>

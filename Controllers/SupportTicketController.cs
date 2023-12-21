@@ -104,15 +104,19 @@ namespace CustomerServices.Controllers
         public ActionResult Reply(reply model)
         {
             /*------------------------ADD DATA TO REPLY TABLE----------------*/
+            var supportTicket = _context.Support_Tickets.Where(x => x.ticket_id == model.ticket_id).FirstOrDefault();
             _context.replies.Add(model);
+            supportTicket.status = "H";
             _context.SaveChanges();
-
-
-
-
             /*------------------------SEND EMAIL--------------------------*/
-            /*WebMail.Send(user)*/
-            return View();
+            /* var getEmail = model.Support_Tickets.Customer.email;*/
+            string email = supportTicket.Customer.email;
+            string toUserIs = email;
+            string subject = "Đơn xử lý yêu cầu hỗ trợ của Khách hàng " + supportTicket.Customer.first_name + " " + supportTicket.Customer.last_name ;
+            string body = "<h2>Chủ đề hỗ trợ: " + model.title + "</h2>" +
+                         "<b> Cách xử lý: </b>" + model.content + "<br /> Trân trọng, " + model.staff + "!";
+            WebMail.Send(toUserIs, subject, body, null, null, null, true, null, null, null, null, null, null);
+            return RedirectToAction("Index");
         }
     }
 }

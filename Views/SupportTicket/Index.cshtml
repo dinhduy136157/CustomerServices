@@ -178,7 +178,9 @@
                                     @item.updated_at
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("reply", "SupportTicket", new {id = @item.ticket_id}, null)">Handle</a>
+                                    <button> 
+                                        <a href="@Url.Action("reply", "SupportTicket", new {id = @item.ticket_id}, null)">Handle</a>
+                                    </button>
                                 </td>
                             </tr>
                         }
